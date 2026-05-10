@@ -1,14 +1,24 @@
+package tests;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import pages.*;
+
 import java.time.Duration;
 import java.util.HashMap;
 
 public class BaseTest {
 
     WebDriver driver;
+    LoginPage loginPage;
+    ProductsPage productsPage;
+    CartPage cartPage;
+    CheckoutInfoPage checkoutInfoPage;
+    CheckoutOverviewPage checkoutOverviewPage;
+    CheckoutCompletePage checkoutCompletePage;
 
     @BeforeMethod
     public void setUp() {
@@ -21,16 +31,23 @@ public class BaseTest {
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
+
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        loginPage = new LoginPage(driver);
+        productsPage = new ProductsPage(driver);
+        cartPage = new CartPage(driver);
+        checkoutInfoPage = new CheckoutInfoPage(driver);
+        checkoutOverviewPage = new CheckoutOverviewPage(driver);
+        checkoutCompletePage = new CheckoutCompletePage(driver);
     }
 
-    @AfterMethod (alwaysRun = true)
-    public void tearDoww() {
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
 }
-
