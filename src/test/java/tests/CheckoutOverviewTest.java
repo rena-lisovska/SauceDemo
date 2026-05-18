@@ -2,7 +2,6 @@ package tests;
 
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import static org.testng.Assert.assertEquals;
 
 public class CheckoutOverviewTest extends BaseTest {
@@ -10,7 +9,11 @@ public class CheckoutOverviewTest extends BaseTest {
     String expectedProductName = "Sauce Labs Backpack";
     String expectedPriceOfProduct = "29.99";
 
-    @Test
+    @Test(
+            testName = "Товар в заказе отображается верно",
+            description = "Проверка корректности товара в заказе перед завершением оформления",
+            groups = "smoke"
+    )
     public void checkOverview() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
@@ -28,7 +31,11 @@ public class CheckoutOverviewTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(
+            testName = "Завершение оформления заказа",
+            description = "Проверка корректного завершения оформления заказа",
+            groups = "smoke"
+    )
     public void checkComplete() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();

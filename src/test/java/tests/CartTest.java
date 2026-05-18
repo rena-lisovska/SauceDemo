@@ -1,16 +1,18 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.CartPage;
 
 public class CartTest extends BaseTest {
 
     String expectedProductName = "Sauce Labs Backpack";
     String expectedPriceOfProduct = "29.99";
 
-    @Test
+    @Test(
+            testName = "Добавление товара в корзину",
+            description = "Проверка добавления конкретного товара в корзину",
+            groups = "smoke"
+    )
     public void checkCart() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
@@ -26,7 +28,11 @@ public class CartTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(
+            testName = "Удаление товара из корзины",
+            description = "Проверка корректного удаление товара из корзины",
+            groups = "regression"
+    )
     public void checkRemoveItem() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();

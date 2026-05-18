@@ -1,11 +1,16 @@
 package tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
-public class CheckoutInfoTest extends BaseTest{
+public class CheckoutInfoTest extends BaseTest {
 
-    @Test
+    @Test(
+            testName = "Переход из корзины к оформлению заказа: шаг 1",
+            description = "Проверка перехода из корзины к оформлению заказа: шаг 1",
+            groups = "smoke"
+    )
     public void checkSuccessfulSwitchToCheckout() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -17,7 +22,11 @@ public class CheckoutInfoTest extends BaseTest{
                 "The heading 'Checkout: Your Information' is missing. An error probably occurred when going to the checkout page.");
     }
 
-    @Test
+    @Test(
+            testName = "Форма оформления заказа с валидными данными",
+            description = "Проверка успешного заполнения формы заказа и переход к шагу 2",
+            groups = "smoke"
+    )
     public void checkFormWithPositiveData() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -30,46 +39,40 @@ public class CheckoutInfoTest extends BaseTest{
                 "The heading 'Checkout: Overview' is missing. An error probably occurred when going to the checkout page.");
     }
 
-    @Test
-    public void checkFormWithEmptyFirstName() {
+    @DataProvider(
+            name = "Параметризированный тест для невалидного заполнения формы заказа"
+    )
+    public Object[][] checkoutData() {
+        return new Object[][]{
+                {"", "Test_last_name", "123456", "Error: First Name is required"},
+                {"Test_first_name", "", "123456", "Error: Last Name is required"},
+                {"Test_first_name", "Test_last_name", "", "Error: Postal Code is required"}
+        };
+    }
+
+    @Test (
+            dataProvider = "Параметризированный тест для невалидного заполнения формы заказа",
+            testName = "Форма оформления заказа с невалидными данными",
+            description = "Проверка негативных кейсов в оформлении заказа",
+            groups = "regression"
+    )
+    public void checkLoginWithNegativeTests(String firstName, String lastName, String postalCode, String errorMessage) {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addToCart("Sauce Labs Backpack");
         productsPage.clickCart();
         cartPage.clickCheckout();
-        checkoutInfoPage.makeOrder("", "Test_last_name", "123456");
-        assertEquals(checkoutInfoPage.getErrorMessage(),
-                "Error: First Name is required",
+        checkoutInfoPage.makeOrder(firstName, lastName, postalCode);
+        assertEquals(loginPage.getErrorMessage(),
+                errorMessage,
                 "No error message or error message incorrect");
     }
 
-    @Test
-    public void checkFormWithEmptyLastName() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addToCart("Sauce Labs Backpack");
-        productsPage.clickCart();
-        cartPage.clickCheckout();
-        checkoutInfoPage.makeOrder("Test_first_name", "", "123456");
-        assertEquals(checkoutInfoPage.getErrorMessage(),
-                "Error: Last Name is required",
-                "No error message or error message incorrect");
-    }
-
-    @Test
-    public void checkFormWithEmptyPostalCode() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addToCart("Sauce Labs Backpack");
-        productsPage.clickCart();
-        cartPage.clickCheckout();
-        checkoutInfoPage.makeOrder("Test_first_name", "Test_last_name", "");
-        assertEquals(checkoutInfoPage.getErrorMessage(),
-                "Error: Postal Code is required",
-                "No error message or error message incorrect");
-    }
-
-    @Test
+    @Test(
+            testName = "Возвращение в корзину из оформления заказа",
+            description = "Проверка возвращения в корзину из оформления заказа",
+            groups = "regression"
+    )
     public void checkReturnShopCartByButtonCancel() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
