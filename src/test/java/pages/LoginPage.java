@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
 
@@ -21,10 +22,14 @@ public class LoginPage extends BasePage {
     public void login(String user, String password) {
         driver.findElement(USERNAME_FIELD).sendKeys(user);
         driver.findElement(PASSWORD_FIELD).sendKeys(password);
-        driver.findElement(LOGIN_BUTTON).click();
+        driver.findElement(LOGIN_BUTTON).click(); // или можно jSClick(LOGIN_BUTTON);
     }
 
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
+    }
+
+    public void isPageOpened(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
     }
 }
