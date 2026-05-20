@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -21,6 +22,7 @@ public class CheckoutInfoPage extends BasePage {
         return driver.findElement(TITLE).getText();
     }
 
+    @Step("Оформление заказа пользователя с данными: имя '{firstName}', фамилия '{lastName}', код '{postalCode}'")
     public void makeOrder(String firstName, String lastName, String postalCode) {
         driver.findElement(FIRSTNAME_FIELD).sendKeys(firstName);
         driver.findElement(LASTNAME_FIELD).sendKeys(lastName);
@@ -28,10 +30,12 @@ public class CheckoutInfoPage extends BasePage {
         driver.findElement(CONTINUE_BUTTON).click();
     }
 
+    @Step("Нажатие на кнопку 'Cancel' для возвражения в корзину с товарами")
     public void clickCancel() {
         driver.findElement(CANCEL_BUTTON).click();
     }
 
+    @Step("Сообщение об ошибке при неверных данных на CheckoutInfoPage")
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
     }

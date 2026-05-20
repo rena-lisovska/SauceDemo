@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
@@ -11,6 +12,11 @@ public class CheckoutInfoTest extends BaseTest {
             description = "Проверка перехода из корзины к оформлению заказа: шаг 1",
             groups = "smoke"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Checkout")
+    @Story("Checkout user information")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkSuccessfulSwitchToCheckout() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -27,6 +33,11 @@ public class CheckoutInfoTest extends BaseTest {
             description = "Проверка успешного заполнения формы заказа и переход к шагу 2",
             groups = "smoke"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Checkout")
+    @Story("Checkout with positive credential")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkFormWithPositiveData() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -56,6 +67,11 @@ public class CheckoutInfoTest extends BaseTest {
             description = "Проверка негативных кейсов в оформлении заказа",
             groups = "regression"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Checkout")
+    @Story("Checkout with negative credential")
+    @Severity(SeverityLevel.NORMAL)
     public void checkLoginWithNegativeTests(String firstName, String lastName, String postalCode, String errorMessage) {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -73,6 +89,11 @@ public class CheckoutInfoTest extends BaseTest {
             description = "Проверка возвращения в корзину из оформления заказа",
             groups = "regression"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Checkout")
+    @Story("Return to shop cart by button Cancel")
+    @Severity(SeverityLevel.MINOR)
     public void checkReturnShopCartByButtonCancel() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
