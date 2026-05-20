@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -27,10 +28,12 @@ public class CheckoutOverviewPage extends BasePage {
         return driver.findElement(By.xpath(String.format(OVERVIEW_ITEM_PRICE, product))).getText().replace("$", "");
     }
 
+    @Step("Нажатие на кнопку 'Finish' для успешного завершения оформления заказа")
     public void clickFinish() {
         driver.findElement(FINISH_BUTTON).click();
     }
 
+    @Step("Нажатие на кнопку 'Cancel' для прекращения оформления заказа и возврата в каталог")
     public void clickCancel() {
         driver.findElement(CANCEL_BUTTON).click();
     }

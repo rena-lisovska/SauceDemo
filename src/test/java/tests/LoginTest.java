@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
@@ -11,6 +12,16 @@ public class LoginTest extends BaseTest {
             description = "Проверка успешного входа в систему с валидными данными",
             groups = "smoke"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Login")
+    @Story("Login with positive credential")
+    @Description("Проверка успешного входа в систему с валидными данными")
+    @Severity(SeverityLevel.CRITICAL)
+    @Flaky
+    @Link(name="Webside", url="https://www.saucedemo.com")
+    @TmsLink("SD-T01")
+    @Issue("BUG-01")
     public void checkLoginWithPositiveCred() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -37,6 +48,11 @@ public class LoginTest extends BaseTest {
             description = "Проверка входа в систему с невалидными данными",
             groups = "regression"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Login")
+    @Story("Login with negative credential")
+    @Severity(SeverityLevel.NORMAL)
     public void checkLoginWithNegativeTests(String user, String password, String errorMessage) { // такой тест является параметризированный, это круто, мы в один тест засунили считай 3
         loginPage.open();
         loginPage.login(user, password);

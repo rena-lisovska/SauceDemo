@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import static org.testng.Assert.assertEquals;
@@ -14,6 +15,11 @@ public class CheckoutOverviewTest extends BaseTest {
             description = "Проверка корректности товара в заказе перед завершением оформления",
             groups = "smoke"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Checkout")
+    @Story("Check overview")
+    @Severity(SeverityLevel.NORMAL)
     public void checkOverview() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
@@ -36,6 +42,11 @@ public class CheckoutOverviewTest extends BaseTest {
             description = "Проверка корректного завершения оформления заказа",
             groups = "smoke"
     )
+    @Owner("Lisovskaya Ira")
+    @Epic("Sauce Demo 1")
+    @Feature("Checkout")
+    @Story("Check complete")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkComplete() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
