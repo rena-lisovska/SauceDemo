@@ -46,7 +46,7 @@ public class BaseTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--headless");
-            driver = new FirefoxDriver();
+            driver = new FirefoxDriver(options);
         }
 
         iTestContext.setAttribute("driver", driver);
